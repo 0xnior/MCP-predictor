@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>IEX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/styles.css">
+
+</head>
+<body>
+<section id="contact">
+
+  <h1 class="section-header">MCP predictor (Rs/MWh)</h1>
+
+  <div class="contact-wrapper">
+
+  <!-- Left contact page -->
+    <form id="contact-form" class="form-horizontal" role="form">
+
+
+      <!-- Additional Inputs -->
+        <div class="form-group">
+        <div class="col-sm-12">
+          <input type="text" class="form-control" id="Purchase" placeholder="Purchase" name="Purchase">
+          <input type="text" class="form-control" id="sbTotal" placeholder="sb TOTAL" name="sbTotal">
+          <input type="text" class="form-control" id="sbSolar" placeholder="sb SOLAR" name="sbSolar">
+          <input type="text" class="form-control" id="sbNonSolar" placeholder="sb NON SOLAR" name="sbNonSolar">
+          <input type="text" class="form-control" id="sbHydro" placeholder="sb HYDRO" name="sbHydro">
+          <input type="text" class="form-control" id="mcvTotal" placeholder="mcv TOTAL" name="mcvTotal">
+          <input type="text" class="form-control" id="mcvNonsolar" placeholder="mcv NON SOLAR" name="mcvNonsolar">
+          <input type="text" class="form-control" id="mcvHydro" placeholder="mcv HYDRO" name="mcvHydro">
+          <input type="text" class="form-control" id="fsvTotal" placeholder="fsv Total" name="fsvTotal">
+        </div>
+      </div>
+
+
+      <button class="btn btn-primary send-button" id="submit" type="submit" value="SEND">
+        <div class="alt-send-button">
+          <i class="fa fa-paper-plane"></i><span class="send-text">SEND</span>
+        </div>
+      </button>
+      <div id="output" class="output-container" style="margin-top: 20px; color: #fff;">
+            <h3>MCP (Rs/MWh)</h3>
+            <pre id="prediction-result"></pre>
+        </div>
+
+
+
+
+      <div class="list-item">By: Mohammed Al-Amri</div>
+
+    </div>
+
+
+</section>
+
+<script>
+  document.querySelector('#contact-form').addEventListener('submit', function (e) {
+        e.preventDefault();  // Prevent the default form submission
+
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;  // Convert FormData to a plain object
+        });
+
+        fetch('/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),  // Send the data as JSON
+        })
+        .then(response => response.json())
+        .then(result => {
+            document.getElementById('prediction-result').innerText = `Prediction: ${result.prediction}`;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
+</body>
+</html>
