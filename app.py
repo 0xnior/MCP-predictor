@@ -6,7 +6,7 @@ st.markdown("<h1 style='text-align: center; font-size: 40px;'>MCP Predictor (Rs/
 
 
 # Load the model and scaler
-pipe = pickle.load(open("IEX_model.pickle", 'rb'))
+pipe = pickle.load(open("PycharmProjects/pythonProject1/IEX_model.pickle", 'rb'))
 scaler = pickle.load(open("scaler.pickle", 'rb'))
 
 # Define the form
