@@ -3,7 +3,7 @@ import pickle
 import pandas as pd
 import numpy as np
 
-pipe = pickle.load(open("IEX_model.pickle", 'rb'))
+pipe = pickle.load(open("PycharmProjects/pythonProject1/IEX_model.pickle", 'rb'))
 scaler = pickle.load(open("scaler.pickle", 'rb'))
 
 app = Flask(__name__)
